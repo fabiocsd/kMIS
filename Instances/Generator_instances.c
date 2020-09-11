@@ -100,26 +100,9 @@ int** gerar(int nL, int nR, double p, int td, int tk, int* qtdArestasE, int* kE)
         ubK = ceil(0.9*nL);
     }
 
-    if(td == 1){
-        lbD = floor(0.1*nL*nR);
-        ubD = ceil(0.3*nL*nR);
-    }else if(td == 2){
-        lbD = floor(0.4*nL*nR);
-        ubD = ceil(0.6*nL*nR);
-    }else{
-        lbD = floor(0.7*nL*nR);
-        ubD = ceil(0.9*nL*nR);
-    }
-
-    double d = randValorDouble(lbD, ubD);
     int k = randValor(lbK, ubK);
 
-    int lbE = nL*nR*lbD;
-    int ubE = nL*nR*ubD;
-    int E = nL*nR*d;
-
     int i, j, qtdArestas = 0;
-    int sair = 0;
     for(i = 0; i < nL; i++){//For each subset i
         for(j = 0; j < nR; j++){//For each element j
             double pp = 0.0;
@@ -133,45 +116,31 @@ int** gerar(int nL, int nR, double p, int td, int tk, int* qtdArestasE, int* kE)
             if(pp <= p){
                 M[i][j] = 1;
                 qtdArestas++;
-
-                if(qtdArestas == E){
-                    sair = 1;
-                    break;
-                }
             }
-
-        }
-        if(sair) break;
-    }
-
-    if(qtdArestas < lbE){
-        sair = 0;
-        for(j = 0; j < nR; j++){//For each element j
-            for(i = 0; i < nL; i++){//For each subset i
-                if(M[i][j] == 0){
-                    double pp = 0.0;
-                    #ifdef __linux__
-                            pp = drand48();
-                    #elif _WIN32
-                            pp = rand();
-                    #else
-                            #error "OS not supported!"
-                    #endif
-
-                    if(pp <= p){
-                        M[i][j] = 1;
-                        qtdArestas++;
-
-                        if(qtdArestas == lbE){
-                            sair = 1;
-                            break;
-                        }
-                    }
-                }
-            }
-            if(sair) break;
         }
     }
+
+
+	for(j = 0; j < nR; j++){//For each element j
+		for(i = 0; i < nL; i++){//For each subset i
+			if(M[i][j] == 0){
+				double pp = 0.0;
+				#ifdef __linux__
+						pp = drand48();
+				#elif _WIN32
+						pp = rand();
+				#else
+						#error "OS not supported!"
+				#endif
+
+				if(pp <= p){
+					M[i][j] = 1;
+					qtdArestas++;
+				}
+			}
+		}
+	}
+    
     *qtdArestasE = qtdArestas;
     *kE = k;
     return M;
