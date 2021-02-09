@@ -41,28 +41,16 @@ tipo: 1 apenas instancias do tipo 1 com |L| = |R| e na primeira linha temos |L|,
 tipo: 2 instancias dos três tipos e na primeira linha temos |L|, |R|, qtd arestas e k.
 tipo: 3 instancias dos três tipos e na primeira linha temos |L|, |R|, qtd arestas. O valor de k deve ser setado fora do metodo e antes de chamar o metodo.
 **/
-bool Graph::read_file(const char *filename, int tipo){
+bool Graph::read_file(const char *filename){
     ifstream input_fh(filename);
     int tem_solucao = 0;
     if (input_fh.is_open()){
         int qtd_instancias, conjunto, valor;
 
-        if(tipo == 1){
-            input_fh >> this->tam_L;
-            input_fh >> qtd_instancias;
-            input_fh >> this->k;
-            this->tam_R = this->tam_L;
-        }
-        else if(tipo == 1){
-            input_fh >> this->tam_L;
-            input_fh >> this->tam_R;
-            input_fh >> qtd_instancias;
-            input_fh >> this->k;
-        }else{
-            input_fh >> this->tam_L;
-            input_fh >> this->tam_R;
-            input_fh >> qtd_instancias;
-        }
+		input_fh >> this->tam_L;
+		input_fh >> this->tam_R;
+		input_fh >> qtd_instancias;
+		input_fh >> this->k;
 
         for (int i = 0; i < this->tam_L; i++){
             this->conjuntosPrincipal.push_back(Elemento(i));

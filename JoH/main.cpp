@@ -16,6 +16,9 @@ using namespace std;
 
 string path_dir = "..//Instances//Random//Journal_of_heuristics//";
 
+/**
+Run vns countTime times storing the value and time of each run.
+**/
 void execute_vns_repeat_armazenar(string file, Graph &graph, string nameFileOut, string nameFileOut2, int countTime){
     double tempo;
     clock_t t1, t2;
@@ -70,10 +73,9 @@ void execute_vns_repeat_armazenar(string file, Graph &graph, string nameFileOut,
 }
 
 /**
-Executa o vns de codigo cod_vns_version 10 vezes gerando a media das solucoes
-encontradas, assim como a melhor e pior solucao. Media do tempo tem e calculada.
+Run the vns 10 times generating the average of the solutions found, as well as the best, worst solution and average time.
 **/
-void execute_vns_repeat(string file, Graph &graph, string nameFileOut, int cod_vns_version, int countTime){
+void execute_vns_repeat(string file, Graph &graph, string nameFileOut, int countTime){
     double tempo;
     clock_t t1, t2;
     FILE *txt;
@@ -153,6 +155,9 @@ void execute_grasp(string file, Graph &graph, int countTime){
 
 }
 
+/**
+Run vns countTime times storing the value and time of each run.
+**/
 void execute_grasp_armazenar(string file, Graph &graph, string nameFileOut, string nameFileOut2, int countTime){
     double tempo;
     clock_t t1, t2;
@@ -206,8 +211,8 @@ void execute_grasp_armazenar(string file, Graph &graph, string nameFileOut, stri
 
 int execute_all(int type, string nameDir){
     int allN[] = {40, 60, 80, 100, 140, 180, 200, 240, 280, 300};
-    for (int j = 1; j <= 9; j++) {//Classes
-        for (int l = 0; l <= 9; l++) {//Tamanho da instancia
+    for (int j = 1; j <= 9; j++) {//Class
+        for (int l = 0; l <= 9; l++) {//Size of instances
             int nL, nR;
             string caminho;
             if(type == 1){
@@ -224,7 +229,7 @@ int execute_all(int type, string nameDir){
                 caminho = path_dir + nameDir + "//type3//classe_" + std::to_string(j) + "_" + std::to_string(nL) + "_" + std::to_string(nR) + ".txt";
             }
             Graph graph;
-            int tem_solucao = graph.read_file(caminho.c_str(), 2);
+            int tem_solucao = graph.read_file(caminho.c_str());
             if(tem_solucao){
                 string saida = "_G1.txt";
                 if(type == 2) saida = "_G2.txt";
@@ -242,13 +247,10 @@ int execute_all(int type, string nameDir){
 }
 
 int main(){
-    time_t seem = 1539462230;//time(NULL);
     #ifdef __linux__
-            //srand48(time(NULL));
-            srand48(seem);
+            srand48(time(NULL));
     #elif _WIN32
-            //srand(time(NULL));
-            srand(seem);
+            srand(time(NULL));
     #else
             #error "OS not supported!"
     #endif

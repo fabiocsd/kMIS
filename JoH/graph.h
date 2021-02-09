@@ -87,7 +87,7 @@ public:
 
     vector<Elemento> conjuntosPrincipal, conjuntosPrincipalOrdenado;//Vizinhanca dos subconjuntos.
 
-    bool read_file(const char *, int);   // parse instance from gcclib file
+    bool read_file(const char *);   // parse instance from gcclib file
 };
 
 bitset<nElem> Interseccao(bitset<nElem> bs1, bitset<nElem> bs2);
