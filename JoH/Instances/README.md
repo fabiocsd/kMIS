@@ -15,3 +15,5 @@ The full description of how the instances were generated can be found in section
 In each file, the first line will contain |L| |R| |E| k.
 From the second line, we will have the edges of the graph (u,v) with u \in L and v \in R.
 
+For an instance of the same class and size, but with a different k value, the bipartite graph can be different.
+
